@@ -1,0 +1,104 @@
+\documentclass[12pt, a4paper]{report}
+
+\usepackage{graphicx}
+\usepackage{authblk}
+\usepackage{hyperref}
+\usepackage{float}
+
+\title{Pendulum with Friction}
+\author{Asim Ukaye}
+\affil{Roll. No.: 130010012}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This report elaborates the simulation of the motion of a pendulum using python programming. The pendulum taken into consideration over here is a simple pendulum with a point mass attached to a mass-less string. The report is divided into 3 sections. Section 1 deals with the physics of the problems and the equations involved behind it. Section 2 shows the plots that were obtained and the problem conditions that were chosen. Section 3 highlights the references and the requirements needed to reproduce this project.  %contain $\dot{\theta}$ and $\theta$ plots with respect to time. 
+%The python code generated these plots by taking the mass, length and damping constant of the pendulum and $\dot{\theta}$ and $\theta$ as arguments for the function and these can be changed which will automatically reflect in the pdf report once the make file in run.%
+
+\end{abstract}
+
+
+\section*{Physics behind the problem}
+\subsection*{Equation of Motion}
+Equation of motion for a mass-less pendulum with a bob at the end is 
+
+\begin{equation}
+\label{equation1}
+\ddot{\theta} + \frac{c}{m}\dot{\theta} + \frac{g}{L}sin\theta = 0
+\end{equation}
+
+where,\\
+c = damping constant in $\frac{kg}{s}$\\
+m = mass of the bob in $kg$\\
+g = acceleration due to gravity which is taken to be $9.8\frac{m}{s^2}$\\
+L = length of the pendulum in $m$\\
+$\theta$ = Angular displacement of the pendulum from the vertical in $rad$\\
+$\dot{\theta}$ = Angular velocity of the pendulum in $\frac{rad}{s}$\\
+$\ddot{\theta}$ = Angular acceleration of the pendulum in $\frac{rad}{s^2}$\\
+
+In equation \ref{equation1} using small angle approximation the equation can be re-written as
+
+\begin{equation}
+\label{equation2}
+\ddot{\theta} + \frac{b}{m}\dot{\theta} + \frac{g}{L}\theta = 0
+\end{equation}
+
+\subsection*{Solutions}
+The equation can be solved assuming the general solution to be $\theta = e^{\lambda}$
+Substituting this in equation \ref{equation2} we get
+
+\begin{eqnarray}
+\lambda^2 + \frac{b}{m}\lambda + \frac{g}{L} = 0\\
+\lambda_1 = \frac{-\frac{b}{m} + \sqrt{(\frac{b}{m})^2 - \frac{4g}{L}}}{2}\\
+\lambda_2 = \frac{-\frac{b}{m} - \sqrt{(\frac{b}{m})^2 - \frac{4g}{L}}}{2}\\
+\end{eqnarray}
+
+Solution can be written as 
+\begin{equation}
+\label{equation3}
+\theta = a_1e^{\lambda_1} + a_2e^{\lambda_2}
+\end{equation}
+
+Using initial conditions for $\theta$ and $\dot{\theta}$, constants $c_1$ and $c_2$ in equation \ref{equation3} can be written as
+\begin{eqnarray}
+a_1 = \frac{\dot{\theta}(0) - \lambda_2\theta(0)}{\lambda_1 - \lambda_2}\\
+a_2 = \frac{\lambda_1\theta(0) - \dot{\theta}(0)}{\lambda_1 - \lambda_2}
+\end{eqnarray}
+
+This solution will work for both underdamped and overdamped cases. It won't work for critical damped case because $\lambda_1=\lambda_2$ in critical damped case. However for practical values of damping constant `c' the pendulum will always be in under-damped condition so the critical damped case is ignored where the above solution won't work.
+
+\section*{}{Results and Plots}
+The result from the code is obtained by using the following parameters:\\\\
+mass = 1 $kg$\\
+c = 0.4 $\frac{kg}{s}$\\
+L = 1 $m$\\
+$\theta$ = 1 $rad$\\
+$\dot{\theta}$ = 0 $\frac{rad}{s}$\\
+
+Obtained graphs are as under:
+
+\begin{figure}[H]
+\label{position}
+\includegraphics[width = \textwidth]{Angular_Position_vs_time.png}
+\caption{$\theta$ vs time}
+\end{figure}
+
+\begin{figure}[H]
+\label{velocity}
+\includegraphics[width = \textwidth]{Angular_Velocity_vs_time.png}
+\caption{$\dot{\theta}$ vs time}
+\end{figure}
+
+\section*{References and Requirements}
+\begin{itemize}
+\item Public git repository with open source code can be found at \url{https://github.com/asimukaye/sdes_project1.git}
+\item Physics reference at \url{http://nrich.maths.org/content/id/6478/Paul-not%20so%20simple%20pendulum%202.pdf}
+\item Ipython version 5.1.0 notebook or higher is required to run the Ipython code
+\item Python 2.7.6 version is required to run the Python code
+\item ffmpeg needs to be installed to save the animation
+
+\end{itemize}
+
+\end{document}
