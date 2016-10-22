@@ -1,0 +1,8 @@
+# images and media and pdfs ignored
+
+*.jpg
+*.png
+*.mp4
+*.avi
+*.pdf
+.ipynb_checkpoints/
